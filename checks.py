@@ -3,9 +3,9 @@ from utils import get_og, update_last_so, add_og
 
 
 def mod_only(func):
-    async def wrapper(self, message):
-        if message.author.is_mod:
-            await func(self, message)
+    async def wrapper(self, ctx, *args, **kwargs):
+        if ctx.author.is_mod:
+            await func(self, ctx, *args, **kwargs)
 
     return wrapper
 

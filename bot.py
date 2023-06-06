@@ -2,7 +2,7 @@ import os
 from twitchio.ext import commands
 from tinydb import TinyDB, Query
 from dotenv import load_dotenv
-from checks import if_og
+from checks import if_og, mod_only
 from utils import update_last_so
 
 load_dotenv()

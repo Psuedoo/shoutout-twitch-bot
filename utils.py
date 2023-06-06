@@ -5,7 +5,7 @@ from tinydb import TinyDB, Query
 def add_og(ctx, user):
     db = TinyDB("db.json")
     ogs = db.table("ogs")
-    if ogs.search(Query().id == user.id, Query().channel == ctx.channel.name):
+    if ogs.search(Query().fragment({'id': user.id, 'channel': ctx.channel.name})):
         return False
 
     ogs.insert(
@@ -24,7 +24,7 @@ def get_ogs(channel: str):
     db = TinyDB("db.json")
     ogs_table = db.table("ogs")
     ogs = ogs_table.search(Query().channel == channel)
-    return [og["name"].lower() for og in ogs.all()]
+    return [og["name"].lower() for og in ogs]
 
 
 def get_og(channel: str, name: str):
