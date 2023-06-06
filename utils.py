@@ -1,6 +1,13 @@
 import datetime
 from tinydb import TinyDB, Query
 
+
+def mod_only(func):
+    async def wrapper(self, message):
+        if message.author.is_mod:
+            await func(self, message)
+    return wrapper
+
 def if_og(func):
     async def wrapper(self, message):
         now = datetime.datetime.now()
@@ -47,3 +54,10 @@ def update_last_so(user):
     db = TinyDB('db.json')
     ogs = db.table('ogs')
     ogs.update({'last_so': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, Query().id == user.id)
+
+def add_channel(channel):
+    db = TinyDB('db.json')
+    table = db.table('initial_channels')
+    Channel = Query()
+    if not table.contains(Channel.name == channel):
+        table.insert({'name': channel})

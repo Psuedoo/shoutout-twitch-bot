@@ -1,4 +1,5 @@
 from twitchio.ext import commands
+from utils import mod_only
 
 
 class OGCog(commands.Cog):
@@ -8,6 +9,7 @@ class OGCog(commands.Cog):
 
 
     @commands.command()
+    @mod_only
     async def add_og(self, ctx: commands.Context, user):
         username = user.strip('@')
         users = await self.fetch_users([username])
@@ -28,6 +30,7 @@ class OGCog(commands.Cog):
         await ctx.send(f'Added {user.name} to the list of Oh Gees')
 
     @commands.command()
+    @mod_only
     async def get_ogs(self, ctx: commands.Context):
         ogs = get_ogs()
         await ctx.send(f'Oh Gees: {ogs}')
