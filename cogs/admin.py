@@ -8,13 +8,16 @@ class AdminCog(commands.Cog):
         self.bot = bot
         self.db = bot.db
 
-    @commands.command(name="joinchannel")
+    @commands.command(
+        name="joinchannel",
+        aliases=["addchannel", "join_channel", "add_channel", "jc"],
+    )
     @mod_only
-    def add_channel(self, ctx, channel):
+    async def add_channel(self, ctx, channel):
         channel = channel.strip("@")
         add_channel(channel)
-        self.bot.join_channels([channel])
-        ctx.send(f"Joined channel {channel}")
+        await self.bot.join_channels([channel])
+        await ctx.send(f"Joined channel {channel}")
 
 
 def prepare(bot):
